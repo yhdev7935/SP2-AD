@@ -1,5 +1,5 @@
 # GAME OPTIONS
 
 GAME_SIZE = [500, 500]
-GAME_TITLE = "Bouncing Ball"
-VERSION = "1.0"
+GAME_TITLE = "Finding Star"
+VERSION = "1.0.0"
