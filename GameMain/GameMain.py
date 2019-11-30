@@ -10,13 +10,14 @@ from GameMainLayout import *
 from DataManagement import *
 from options import *
 from LoadingThread import *
+from MessageBox import *
 
 class GameMain:
 
     def __init__(self):
         # Initialize Loading Screen
         self.loadmsg = "Loading Game..."
-        Loading(self)
+        #Loading(self)
 
         # Initialize Game
         self.loadmsg = "Loading Player Data..."
@@ -29,8 +30,6 @@ class GameMain:
         self.MainLayout = GameMainLayout(self)
         self.loadmsg = "Complete!"
 
-
-        pass
 
     # init Client ID
     def initClientID(self):
@@ -45,6 +44,16 @@ class GameMain:
 
     def start(self):
         self.MainLayout.show()
+
+        # Version Check
+        self.showCheckVersion()
+
+    def showCheckVersion(self):
+        if VERSION != self.serverVersion:
+            msgtext = "New Version: %s\nYOU NEED TO DOWNLOAD!" % self.serverVersion
+            _msgbox = MessageBox(msgtext, "New Version AVAILABLE!", "Century Schoolbook", 20)
+            _msgbox.exec_()
+        return False
 
     def quit(self):
         self.MainLayout.close()

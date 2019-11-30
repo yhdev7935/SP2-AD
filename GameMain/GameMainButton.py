@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import *
 from options import *
 from Font import *
 from GameMainButton import *
+from MessageBox import *
 
 class GameMainButton(QPushButton):
     def __init__(self, text, GameMain):
@@ -29,7 +30,7 @@ class GameMainButton(QPushButton):
             pass
 
         # When Map Button Clicked
-        if text == "Button":
+        if text == "Map":
             self.onMapClick()
             pass
 
@@ -42,7 +43,9 @@ class GameMainButton(QPushButton):
         pass
 
     def onMapClick(self):
-        pass
+        # Version Check
+        if self.GameMain.showCheckVersion() == False:
+            return
 
     def onExitClick(self):
         self.GameMain.quit()
