@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import *
 from options import *
 from Font import *
 from GameMainButton import *
+from DataManagement import *
 
 class GameMainLayout(QWidget):
 
@@ -53,7 +54,8 @@ class GameMainLayout(QWidget):
         ServerVersion = str("Not Connected")
 
         # get Client ID
-        ClientID = str("None")
+        data = DataManagement("playerdata.dat")
+        ClientID = data.get(CLIENT_ID_KEY)
 
         # Label Text
         LabelText = "Client Ver: %s\n Server Ver: %s\n Client ID: %s"\

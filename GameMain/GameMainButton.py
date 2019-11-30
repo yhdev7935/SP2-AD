@@ -22,13 +22,13 @@ class GameMainButton(QPushButton):
         font.setBold(True)
         self.setFont(font.getFont())
         self.setFixedSize(120, 60)
-        self.clicked.connect(self.ButtonClicked)
+        self.clicked.connect(self.buttonClicked)
 
     # Equivalent with getButton Method
     def __str__(self):
         return self
 
-    def ButtonClicked(self):
+    def buttonClicked(self):
         text = self.sender().text()
 
         # When Start Button Clicked
