@@ -14,9 +14,10 @@ class GameMain:
 
     def __init__(self):
         # Initialize Game
-        self.MainLayout = GameMainLayout(self)
         self.playerdata = DataManagement("playerdata.dat")
         self.initClientID()
+
+        self.MainLayout = GameMainLayout(self)
         pass
 
     # init Client ID

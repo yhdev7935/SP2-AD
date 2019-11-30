@@ -14,6 +14,7 @@ class GameMainLayout(QWidget):
     def __init__(self, GameMain):
         super().__init__()
         self.GameMain = GameMain
+        self.StatusBar = QStatusBar()
         self.initUI()
         self.setWindowTitle(GAME_TITLE)
         self.resize(1000, 500)
@@ -27,7 +28,6 @@ class GameMainLayout(QWidget):
 
         ## Game Name
         self.mainLayout.addWidget(self.nameWidget())
-        self.mainLayout.addStretch(1)
 
         ## Button
         self.StartButton = self.makeButtonWidget("Start")
@@ -36,10 +36,11 @@ class GameMainLayout(QWidget):
         self.mainLayout.addLayout(self.makeButtonLayout(self.StartButton))
         if InternetConnected() == True:
             self.mainLayout.addLayout(self.makeButtonLayout(self.MapButton))
+        else:
+            self.setStatus("Map Button Load Failed: 인터넷이 연결이 안되어 있습니다.")
         self.mainLayout.addLayout(self.makeButtonLayout(self.ExitButton))
 
         ## StatusBar
-        self.StatusBar = QStatusBar()
         self.mainLayout.addWidget(self.StatusBar)
 
         self.setLayout(self.mainLayout)
@@ -95,6 +96,9 @@ class GameMainLayout(QWidget):
 
     def getMainLayout(self):
         return self.mainLayout
+
+    def setStatus(self, msg):
+        self.StatusBar.showMessage(msg)
 
     def __str__(self):
         return self.getMainLayout()
