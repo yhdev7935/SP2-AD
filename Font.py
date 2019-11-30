@@ -10,3 +10,6 @@ class Font():
 
     def getFont(self):
         return self.font
+
+    def setBold(self, bool):
+        self.font.setBold(bool)
