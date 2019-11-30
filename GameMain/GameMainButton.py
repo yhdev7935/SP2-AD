@@ -5,17 +5,8 @@ from options import *
 from Font import *
 from GameMainButton import *
 
-def onStartClick():
-    pass
-
-def onMapClick():
-    pass
-
-def onExitClick():
-    pass
-
 class GameMainButton(QPushButton):
-    def __init__(self, text):
+    def __init__(self, text, GameMain):
         # Initialization
         super().__init__(text)
         font = Font("Script MT Bold", 16)
@@ -23,6 +14,7 @@ class GameMainButton(QPushButton):
         self.setFont(font.getFont())
         self.setFixedSize(120, 60)
         self.clicked.connect(self.buttonClicked)
+        self.GameMain = GameMain
 
     # Equivalent with getButton Method
     def __str__(self):
@@ -33,14 +25,24 @@ class GameMainButton(QPushButton):
 
         # When Start Button Clicked
         if text == "Start":
-            onStartClick()
+            self.onStartClick()
             pass
 
         # When Map Button Clicked
         if text == "Button":
-            onMapClick()
+            self.onMapClick()
             pass
 
         # When Exit Button Clicked
         if text == "Exit":
+            self.onExitClick()
             pass
+
+    def onStartClick(self):
+        pass
+
+    def onMapClick(self):
+        pass
+
+    def onExitClick(self):
+        self.GameMain.quit()

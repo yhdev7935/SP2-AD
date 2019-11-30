@@ -14,7 +14,7 @@ class GameMain:
 
     def __init__(self):
         # Initialize Game
-        self.MainLayout = GameMainLayout()
+        self.MainLayout = GameMainLayout(self)
         self.playerdata = DataManagement("playerdata.dat")
         self.initClientID()
         pass
@@ -31,8 +31,10 @@ class GameMain:
         self.MainLayout.StatusBar.showMessage(msg)
 
     def start(self):
-
         self.MainLayout.show()
+
+    def quit(self):
+        self.MainLayout.close()
 
 if __name__ == "__main__":
 

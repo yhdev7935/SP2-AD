@@ -10,8 +10,9 @@ from DataManagement import *
 
 class GameMainLayout(QWidget):
 
-    def __init__(self):
+    def __init__(self, GameMain):
         super().__init__()
+        self.GameMain = GameMain
         self.initUI()
         self.setWindowTitle(GAME_TITLE)
         self.resize(1000, 500)
@@ -27,9 +28,9 @@ class GameMainLayout(QWidget):
         self.mainLayout.addWidget(self.nameWidget())
 
         ## Button
-        self.StartButton = GameMainButton("Start")
-        self.MapButton = GameMainButton("Map")
-        self.ExitButton = GameMainButton("Exit")
+        self.StartButton = self.makeButtonWidget("Start")
+        self.MapButton = self.makeButtonWidget("Map")
+        self.ExitButton = self.makeButtonWidget("Exit")
         self.mainLayout.addLayout(self.makeButtonLayout(self.StartButton))
         self.mainLayout.addLayout(self.makeButtonLayout(self.MapButton))
         self.mainLayout.addLayout(self.makeButtonLayout(self.ExitButton))
@@ -78,6 +79,9 @@ class GameMainLayout(QWidget):
         ret.setToolTip("<html><head/><body><p>별을 찾아...</p></body></html>")
         return ret
 
+    def makeButtonWidget(self, text):
+        button = GameMainButton(text, self.GameMain)
+        return button
 
     def makeButtonLayout(self, button):
         # Initialization
