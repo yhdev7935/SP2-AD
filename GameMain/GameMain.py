@@ -1,6 +1,6 @@
 # Execute Game
 
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from options import *
@@ -9,15 +9,27 @@ from GameMainButton import *
 from GameMainLayout import *
 from DataManagement import *
 from options import *
+from LoadingThread import *
 
 class GameMain:
 
     def __init__(self):
-        # Initialize Game
-        self.playerdata = DataManagement("playerdata.dat")
-        self.initClientID()
+        # Initialize Loading Screen
+        self.loadmsg = "Loading Game..."
+        Loading(self)
 
+        # Initialize Game
+        self.loadmsg = "Loading Player Data..."
+        self.playerdata = DataManagement("playerdata.dat")
+        self.loadmsg = "Loading Client ID..."
+        self.initClientID()
+        self.loadmsg = "Loading Server Version..."
+        self.serverVersion = getServerVersion()
+        self.loadmsg = "Loading Main Layout..."
         self.MainLayout = GameMainLayout(self)
+        self.loadmsg = "Complete!"
+
+
         pass
 
     # init Client ID

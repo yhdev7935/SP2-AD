@@ -56,7 +56,7 @@ class GameMainLayout(QWidget):
 
         # get Client, Server Version
         ClientVersion = str(VERSION) # import options
-        ServerVersion = str("Not Connected")
+        ServerVersion = str(self.GameMain.serverVersion)
 
         # get Client ID
         data = DataManagement("playerdata.dat")
