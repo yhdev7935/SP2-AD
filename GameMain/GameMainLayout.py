@@ -7,6 +7,7 @@ from options import *
 from Font import *
 from GameMainButton import *
 from DataManagement import *
+from Internet import *
 
 class GameMainLayout(QWidget):
 
@@ -26,13 +27,15 @@ class GameMainLayout(QWidget):
 
         ## Game Name
         self.mainLayout.addWidget(self.nameWidget())
+        self.mainLayout.addStretch(1)
 
         ## Button
         self.StartButton = self.makeButtonWidget("Start")
         self.MapButton = self.makeButtonWidget("Map")
         self.ExitButton = self.makeButtonWidget("Exit")
         self.mainLayout.addLayout(self.makeButtonLayout(self.StartButton))
-        self.mainLayout.addLayout(self.makeButtonLayout(self.MapButton))
+        if InternetConnected() == True:
+            self.mainLayout.addLayout(self.makeButtonLayout(self.MapButton))
         self.mainLayout.addLayout(self.makeButtonLayout(self.ExitButton))
 
         ## StatusBar
