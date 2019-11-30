@@ -5,7 +5,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from options import *
 from Font import *
-from GameMainButtonCallBack import *
+from GameMainButton import *
 
 class GameMainLayout(QWidget):
 
@@ -26,9 +26,9 @@ class GameMainLayout(QWidget):
         self.mainLayout.addWidget(self.nameWidget())
 
         ## Button
-        self.StartButton = self.buttonWidget("Start")
-        self.MapButton = self.buttonWidget("Map")
-        self.ExitButton = self.buttonWidget("Exit")
+        self.StartButton = GameMainButton("Start")
+        self.MapButton = GameMainButton("Map")
+        self.ExitButton = GameMainButton("Exit")
         self.mainLayout.addLayout(self.makeButtonLayout(self.StartButton))
         self.mainLayout.addLayout(self.makeButtonLayout(self.MapButton))
         self.mainLayout.addLayout(self.makeButtonLayout(self.ExitButton))
@@ -75,19 +75,6 @@ class GameMainLayout(QWidget):
         ret.setText(GAME_TITLE)
         ret.setToolTip("<html><head/><body><p>별을 찾아...</p></body></html>")
         return ret
-
-    def buttonWidget(self, text):
-        # Initialization
-        button = QPushButton(text)
-        font = Font("Script MT Bold", 16)
-        font.setBold(True)
-        button.setFont(font.getFont())
-        button.setFixedSize(120, 60)
-        button.clicked.connect(self.buttonClicked)
-        return button
-
-    def buttonClicked(self):
-        text = self.sender().text()
 
 
     def makeButtonLayout(self, button):
