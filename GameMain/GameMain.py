@@ -51,12 +51,18 @@ class GameMain:
         # Version Check
         self.showCheckVersion()
 
+    def changetoMapList(self):
+        self.quit()
+        self.MainLayout = MapListLayout()
+        self.start()
+
     def showCheckVersion(self):
         if VERSION != self.serverVersion and self.serverVersion != SERVER_DISCONNECTED:
             msgtext = "New Version: %s\nYOU NEED TO DOWNLOAD!" % self.serverVersion
             _msgbox = MessageBox(msgtext, "New Version AVAILABLE!", "Century Schoolbook", 20)
             _msgbox.exec_()
-        return False
+            return False
+        return True
 
     def quit(self):
         self.MainLayout.close()

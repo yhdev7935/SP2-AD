@@ -5,6 +5,7 @@ from options import *
 from Font import *
 from GameMainButton import *
 from MessageBox import *
+from MapListLayout import *
 
 class GameMainButton(QPushButton):
     def __init__(self, text, GameMain):
@@ -46,6 +47,8 @@ class GameMainButton(QPushButton):
         # Version Check
         if self.GameMain.showCheckVersion() == False:
             return
+        self.GameMain.changetoMapList()
+
 
     def onExitClick(self):
         self.GameMain.quit()
