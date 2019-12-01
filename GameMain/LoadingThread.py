@@ -18,7 +18,7 @@ class LoadingThread(QThread):
             if self.GameMain.loadmsg == "Complete!":
                 running = False
             self.Loading.setLoadingStatus(self.GameMain.loadmsg)
-            self.msleep(10)
+            self.msleep(1)
         self.Loading.close()
 
 

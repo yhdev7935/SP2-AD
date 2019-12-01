@@ -32,27 +32,35 @@ class Loading(QWidget):
         self.setLayout(mainLayout)
 
     def getMainLabelLayout(self):
-        layout = QHBoxLayout()
+        # Label
         label_font = Font("Copperplate Gothic Bold", 60)
         label = QLabel('Loading...')
         label.setFont(label_font.getFont())
+
+        # Layout
+        layout = QHBoxLayout()
         layout.addWidget(label)
         layout.setAlignment(Qt.AlignCenter)
         return layout
 
     def getLoadingStatusLabelLayout(self):
-        layout = QHBoxLayout()
-        self.LoadingStatus = QLabel('')
-        self.setLoadingStatus('Game Initializing...')
+        # LoadingStatus Label
+        self.LoadingStatus = QLabel('Game Initializing...')
         ls_font = Font("Century Schoolbook", 15)
         self.LoadingStatus.setFont(ls_font.getFont())
+        #self.LoadingStatus.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Minimum)
+        #self.LoadingStatus.setWordWrap(True)
+
+        # Layout
+        layout = QHBoxLayout()
         layout.addWidget(self.LoadingStatus)
         layout.setAlignment(Qt.AlignCenter)
         return layout
 
     def setLoadingStatus(self, msg):
         self.LoadingStatus.setText(msg)
-        self.LoadingStatus.repaint()
+        self.LoadingStatus.repaint() # update Loading Status
+        self.LoadingStatus.adjustSize() # Auto adjust Font Size to fit Label
 
     def __str__(self):
         return self

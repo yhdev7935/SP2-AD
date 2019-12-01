@@ -17,7 +17,7 @@ class GameMain:
     def __init__(self):
         # Initialize Loading Screen
         self.loadmsg = "Loading Game..."
-        #Loading(self)
+        load_scr = Loading(self)
 
         # Initialize Game
         self.loadmsg = "Loading Player Data..."
@@ -30,6 +30,9 @@ class GameMain:
         self.MainLayout = GameMainLayout(self)
         self.loadmsg = "Complete!"
 
+        # Check Loading Screen is Off (Exception)
+        if load_scr.isActiveWindow():
+            load_scr.close()
 
     # init Client ID
     def initClientID(self):
