@@ -1,4 +1,5 @@
 import socket, urllib.request
+from options import *
 
 def InternetConnected():
     ip = socket.gethostbyname(socket.gethostname())
@@ -9,8 +10,11 @@ def InternetConnected():
 
 def getServerVersion():
     url = "https://raw.githubusercontent.com/yhdev7935/SP2-AD/master/VERSION"
-    data = urllib.request.urlopen(url)
-    return str(data.read().decode('utf-8'))
+    try:
+        data = urllib.request.urlopen(url)
+        return str(data.read().decode('utf-8'))
+    except urllib.error.URLError:
+        return SERVER_DISCONNECTED
 
 
 if __name__ == "__main__":

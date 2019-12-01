@@ -17,3 +17,5 @@ def getVersion():
         return f.readlines()[0]
 
 VERSION = getVersion()
+
+SERVER_DISCONNECTED = "Not Connected"

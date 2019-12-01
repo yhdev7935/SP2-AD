@@ -49,7 +49,7 @@ class GameMain:
         self.showCheckVersion()
 
     def showCheckVersion(self):
-        if VERSION != self.serverVersion:
+        if VERSION != self.serverVersion and self.serverVersion != SERVER_DISCONNECTED:
             msgtext = "New Version: %s\nYOU NEED TO DOWNLOAD!" % self.serverVersion
             _msgbox = MessageBox(msgtext, "New Version AVAILABLE!", "Century Schoolbook", 20)
             _msgbox.exec_()
