@@ -5,4 +5,9 @@
 * 20191608 서형빈
 
 ## 주제
-* Finding Star
+* Finding Star (별을 찾아서)
+
+## import
+* PyQt5, pygame, Flask, socket, pickle, urllib
+
+

@@ -27,7 +27,8 @@ class GameMain:
         self.loadmsg = "Loading Server Version..."
         self.serverVersion = getServerVersion()
         self.loadmsg = "Loading Main Layout..."
-        self.MainLayout = GameMainLayout(self)
+        self.GameMainLayout = GameMainLayout(self)
+        self.MainLayout = self.GameMainLayout
         self.loadmsg = "Complete!"
 
         # Check Loading Screen is Off (Exception)
@@ -53,7 +54,12 @@ class GameMain:
 
     def changetoMapList(self):
         self.quit()
-        self.MainLayout = MapListLayout()
+        self.MainLayout = MapListLayout(self)
+        self.start()
+
+    def changetoGameMainLayout(self):
+        self.quit()
+        self.MainLayout = self.GameMainLayout
         self.start()
 
     def showCheckVersion(self):

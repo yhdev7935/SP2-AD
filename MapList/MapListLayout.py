@@ -3,6 +3,8 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
+from MapListButton import *
+from Font import *
 
 
 class MapListLayout(QWidget):
@@ -13,14 +15,17 @@ class MapListLayout(QWidget):
         self.StatusBar = QStatusBar()
         self.initUI()
         self.setWindowTitle("Map List!")
-        self.resize(1000, 500)
+        self.resize(900, 800)
 
     def initUI(self):
         # Vertical Layout
         self.mainLayout = QVBoxLayout()
 
-        # Search Layout
+        ## Search Layout
         self.mainLayout.addLayout(self.getSearchLayout())
+
+        ## ListView + Button Layout
+        self.mainLayout.addLayout(self.getLVBLayout())
 
         ## StatusBar
         self.mainLayout.addWidget(self.StatusBar)
@@ -34,11 +39,13 @@ class MapListLayout(QWidget):
         sortComboBox = QComboBox()
         sortComboBox.addItems(['My Map', 'Recent Map'])
         InputBox = QLineEdit('')
-        SearchButton = QPushButton('Search')
+        SearchButton = MapListButton('Search',
+                                     connectLayout=self,
+                                     x=100, y=35,
+                                     fontname="Century Gothic")
 
         # Event
         sortComboBox.currentTextChanged.connect(print) # if ComboBox Text Changed
-        #SearchButton.clicked.connect
 
         # Layout
         layout = QHBoxLayout()
@@ -49,6 +56,84 @@ class MapListLayout(QWidget):
         layout.addWidget(SearchButton)
         return layout
 
+    # get ListView + Button Layout
+    def getLVBLayout(self):
+        # ListView
+        ListViewLayout = self.getListViewLayout()
+
+        # ButtonListLayout
+        ButtonListLayout = self.getButtonListLayout()
+
+        #LVB Layout
+        layout = QHBoxLayout()
+        layout.addLayout(ListViewLayout)
+        layout.addLayout(ButtonListLayout)
+        return layout
+
+    def getListViewLayout(self):
+        # ListView Widget
+        ListView = QListView()
+        #model = QStandardItemModel()
+        #model.appendRow(QStandardItem("Hi\nHi\nHi"))
+        #ListView.setModel(model)
+        ListView.setEditTriggers(QAbstractItemView.NoEditTriggers) # Uneditable QListView
+        ListView.clicked.connect(print)
+
+        # Page Move Layout
+        PageMoveLayout = self.getPageMoveLayout()
+
+        # layout
+        layout = QVBoxLayout()
+        layout.addWidget(ListView)
+        layout.addLayout(PageMoveLayout)
+        return layout
+
+    def getPageMoveLayout(self):
+        # Widget
+        self.LeftMove = MapListButton('<',
+                                     connectLayout=self,
+                                     x=40, y=40,
+                                     fontname="Century Gothic")
+        self.Page = QLabel('1')
+        PageFont = Font('Century Gothic', 13)
+        self.Page.setFont(PageFont.getFont())
+        self.RightMove = MapListButton('>',
+                                      connectLayout=self,
+                                      x=40, y=40,
+                                      fontname="Century Gothic")
+
+        # layout
+        layout = QHBoxLayout()
+        layout.addStretch(1)
+        layout.addWidget(self.LeftMove)
+        layout.addWidget(self.Page)
+        layout.addWidget(self.RightMove)
+        layout.addStretch(1)
+        layout.setAlignment(Qt.AlignCenter)
+        return layout
+
+    def getButtonListLayout(self):
+        # Button Widgets
+        self.newButton = MapListButton('New',
+                                      connectLayout=self,
+                                      x=120, y=60,
+                                      fontname="Century Gothic")
+        self.randomButton = MapListButton('Random',
+                                          connectLayout=self,
+                                          x=120, y=60,
+                                          fontname="Century Gothic")
+        self.backButton = MapListButton('Back',
+                                       connectLayout=self,
+                                       x=120, y=60,
+                                       fontname="Century Gothic")
+
+        # layout
+        layout = QVBoxLayout()
+        layout.addWidget(self.newButton)
+        layout.addWidget(self.randomButton)
+        layout.addWidget(self.backButton)
+        layout.setAlignment(Qt.AlignTop)
+        return layout
 
     def getMainLayout(self):
         return self.mainLayout
