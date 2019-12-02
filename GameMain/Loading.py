@@ -48,8 +48,6 @@ class Loading(QWidget):
         self.LoadingStatus = QLabel('Game Initializing...')
         ls_font = Font("Century Schoolbook", 15)
         self.LoadingStatus.setFont(ls_font.getFont())
-        #self.LoadingStatus.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Minimum)
-        #self.LoadingStatus.setWordWrap(True)
 
         # Layout
         layout = QHBoxLayout()

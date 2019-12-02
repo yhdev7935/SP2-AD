@@ -11,10 +11,10 @@ class DataManagement:
             temp = open(self.filepath, "wb")
             temp.close()
 
-    def genKey(self):
-        _LENGTH, ret = 20, ""
+    def genKey(self, _len=20):
+        ret = ""
         string_pool = string.ascii_letters + string.digits
-        for i in range(_LENGTH):
+        for i in range(_len):
             ret += random.choice(string_pool)
         return ret
 
@@ -46,5 +46,29 @@ class DataManagement:
 
     def delete(self):
         os.remove(self.filepath)
+
+mapID = ["mapID", 0]
+playerID = ["playerID", 1]
+TimeUpload = ["TimeUpload", 2]
+mapName = ["mapName", 3]
+mapData = ["mapData", 4]
+
+def getListViewDataFormat(mapID, playerID, TimeUpload, mapName, mapData):
+    return "mapID: %s\n" \
+           "playerID: %s\n" \
+           "TimeUpload: %s\n" \
+           "mapName: %s\n" \
+           "mapData: %s"\
+           % (mapID, playerID, TimeUpload, mapName, mapData)
+
+def getListViewData(data, dataEnum) -> string:
+    data = data.split('\n')[dataEnum[1]] # select line
+    data = data.split(':')[1][1:]
+    return data
+
+if __name__ == "__main__":
+    data = getListViewDataFormat("A", "B", "C", "D", "E")
+    print(getListViewData(data, mapData))
+
 
 

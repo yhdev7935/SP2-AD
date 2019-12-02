@@ -5,6 +5,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from MapListButton import *
 from Font import *
+from DataManagement import *
 
 
 class MapListLayout(QWidget):
@@ -42,7 +43,8 @@ class MapListLayout(QWidget):
         SearchButton = MapListButton('Search',
                                      connectLayout=self,
                                      x=100, y=35,
-                                     fontname="Century Gothic")
+                                     fontname="Century Gothic",
+                                     fontsize=12)
 
         # Event
         sortComboBox.currentTextChanged.connect(print) # if ComboBox Text Changed
@@ -72,19 +74,18 @@ class MapListLayout(QWidget):
 
     def getListViewLayout(self):
         # ListView Widget
-        ListView = QListView()
-        #model = QStandardItemModel()
-        #model.appendRow(QStandardItem("Hi\nHi\nHi"))
-        #ListView.setModel(model)
-        ListView.setEditTriggers(QAbstractItemView.NoEditTriggers) # Uneditable QListView
-        ListView.clicked.connect(print)
+        self.ListView = QListView()
+        model = QStringListModel([getListViewDataFormat("A", "B", "C", "D", "E")])
+        self.ListView.setModel(model)
+        self.ListView.setEditTriggers(QAbstractItemView.NoEditTriggers) # Uneditable QListView
+        self.ListView.doubleClicked.connect(self.ListViewPrintTest)
 
         # Page Move Layout
         PageMoveLayout = self.getPageMoveLayout()
 
         # layout
         layout = QVBoxLayout()
-        layout.addWidget(ListView)
+        layout.addWidget(self.ListView)
         layout.addLayout(PageMoveLayout)
         return layout
 
@@ -134,6 +135,9 @@ class MapListLayout(QWidget):
         layout.addWidget(self.backButton)
         layout.setAlignment(Qt.AlignTop)
         return layout
+
+    def ListViewPrintTest(self, data):
+        print(data.data())
 
     def getMainLayout(self):
         return self.mainLayout

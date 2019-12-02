@@ -8,10 +8,10 @@ from MessageBox import *
 from MapListLayout import *
 
 class MapListButton(QPushButton):
-    def __init__(self, text, connectLayout, x = 120, y = 60, fontname = "Script MT Bold"):
+    def __init__(self, text, connectLayout, x = 120, y = 60, fontname = "Script MT Bold", fontsize = 13):
         # Initialization
         super().__init__(text)
-        font = Font(fontname, 13)
+        font = Font(fontname, fontsize)
         font.setBold(True)
         self.setFont(font.getFont())
         self.setFixedSize(x, y)
