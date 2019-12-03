@@ -20,9 +20,10 @@ blockList = {
 
 mapList = [['d' for i in range(windows_size[0] // SIZE)] for j in range(windows_size[1] // SIZE)]
 mapList[1][1] = 'p'
+mapList[1][3] = 's'
 
 # example user setting
-isgame = False
+isgame = True
 MapID = 'jf342ad'
 MapName = 'heroes'
 playerID = 'antifly55'
@@ -67,13 +68,17 @@ if isgame:
         # 점프블럭을 밟았을때 처리
         # 가시블럭을 밟았을때 처리
         # 맵을 벗어났을 때 처리
-        # 별을 먹었을 때 처리
+        if mapList[py // SIZE][px // SIZE] == 's':
+            mapList[py // SIZE][px // SIZE] = 'd'
+            for currentList in mapList:
+                if 's' in currentList:
+                    break
 
         # draw UI
         drawBackground(screen)
         drawLine(screen, isgame)
         drawBlock(screen, mapList)
-        screen.blit(image[mapList[y // SIZE][x // SIZE]], (px, py))
+        screen.blit(image['p'], (px, py))
 
         clock.tick(60)
         pygame.display.update()

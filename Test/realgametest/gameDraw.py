@@ -31,5 +31,5 @@ def drawLine(screen, isgame=True):
 def drawBlock(screen, mapList, isgame=True):
     for y in range(0, windows_size[1], SIZE):
         for x in range(0, windows_size[0], SIZE):
-            #if mapList[y // SIZE][x // SIZE] == 'p' and isgame: continue
+            if mapList[y // SIZE][x // SIZE] == 'p' and isgame: continue
             screen.blit(image[mapList[y // SIZE][x // SIZE]], (x, y))

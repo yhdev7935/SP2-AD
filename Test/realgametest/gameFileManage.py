@@ -7,10 +7,10 @@ def save(mapName, mapID, playerID, mapList):
     playerCount = 0
     starCount = 0
 
-    for y in range(mapList):
-        if 'p' in mapList[y]:
+    for currentList in mapList:
+        if 'p' in currentList:
             playerCount += 1
-        elif 's' in mapList[y]:
+        elif 's' in currentList:
             starCount += 1
 
     if playerCount != 1: return

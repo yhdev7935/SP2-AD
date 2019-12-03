@@ -47,15 +47,32 @@ def writeDB():
 class TodoSimple(Resource):
     
     def get(self, command):
-        return todos[command] # {'playerId': playerID, 'timeUpload': timeUpload, 'mapData': mapData}
+        mapID = command
+        mapDict = todos[mapID]
+
+        playerID = mapDict['playerID']
+        TimeUpload = mapDict['TimeUpload']
+        mapName = mapDict['mapName']
+        mapData = mapDict['mapData']
+
+        return "mapID: %s\n" \
+               "playerID: %s\n" \
+               "TimeUpload: %s\n" \
+               "mapName: %s\n" \
+               "mapData: %s" \
+               % (mapID, playerID, TimeUpload, mapName, mapData)
 
     def put(self, command):
         global todos, recentMapID, playerMapID
-        puted = request.form['data'].split(' ')
         
-        if command == 'upload': # upload playerID timeUpload mapData
-            mapID, playerID, timeUpload, mapData = puted[0], puted[1], puted[2], puted[3]
-            todos[mapID] = {'playerID': playerID, 'timeUpload': timeUpload, 'mapData': mapData}
+        if command == 'upload':
+            mapID = request.form['mapID']
+            playerID = request.form['playerID']
+            TimeUpload = request.form['TimeUpload']
+            mapName = request.form['mapName']
+            mapData = request.form['mapData']
+
+            todos[mapID] = {'playerID': playerID, 'TimeUpload': TimeUpload, 'mapData': mapData, 'mapName': mapName}
         
             recentMapID.append(mapID)
             recentMapID = recentMapID[-500:]
@@ -65,13 +82,9 @@ class TodoSimple(Resource):
             playerMapID[playerID].append(mapID)
             
             writeDB()
-        
-        elif command == 'edit': # edit mapID
-            mapID = puted[0]
-            return todos[mapID]
             
         elif command == 'myMap': # myMap playerID
-            playerID = puted[0]
+            playerID = request.form['playerID']
             return playerMapID[playerID] #playerMapID = {playerID:[MapID...]}
             
         elif command == 'recentMap': # recentMap
