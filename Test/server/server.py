@@ -28,8 +28,6 @@ def readDB():
         playerMapID = pickle.load(fH)
     except FileNotFoundError as e:
         playerMapID = dict()
-        
-    fH.close()
 
 def writeDB():
     global todos, recentMapID, playerMapID
@@ -42,11 +40,10 @@ def writeDB():
     fH = open("playerMapID.dat", 'wb')
     pickle.dump(playerMapID, fH)
 
-    fH.close()
-
 class TodoSimple(Resource):
     
     def get(self, command):
+        # ex) get(http://127.0.0.1:5000/mapID)
         mapID = command
         mapDict = todos[mapID]
 
@@ -66,6 +63,7 @@ class TodoSimple(Resource):
         global todos, recentMapID, playerMapID
         
         if command == 'upload':
+            # ex) put('http://127.0.0.1:5000/upload', data={'mapID': mapID, 'playerID': playerID, ......}).json()
             mapID = request.form['mapID']
             playerID = request.form['playerID']
             TimeUpload = request.form['TimeUpload']
@@ -84,10 +82,12 @@ class TodoSimple(Resource):
             writeDB()
             
         elif command == 'myMap': # myMap playerID
+            # ex) put('http://127.0.0.1:5000/myMap', data={'playerID': playerID}).json()
             playerID = request.form['playerID']
             return playerMapID[playerID] #playerMapID = {playerID:[MapID...]}
-            
+
         elif command == 'recentMap': # recentMap
+            # ex) put('http://127.0.0.1:5000/recentMap').json()
             return recentMapID
 
 api.add_resource(TodoSimple, '/<string:command>')
