@@ -21,15 +21,15 @@ def drawBackground(screen):
     screen.fill(WHITE)
 
 def drawLine(screen, isgame=True):
-    if not isgame: return
+    if isgame: return
     for y in range(0, windows_size[1], SIZE):
         pygame.draw.line(screen, BLACK, (0, y), (windows_size[0], y))
     for x in range(0, windows_size[0], SIZE):
         pygame.draw.line(screen, BLACK, (x, 0), (x, windows_size[1]))
 
 
-def drawBlock(screen, mapList):
+def drawBlock(screen, mapList, isgame=True):
     for y in range(0, windows_size[1], SIZE):
         for x in range(0, windows_size[0], SIZE):
-            if mapList[y // SIZE][x // SIZE] == 'p': continue
+            #if mapList[y // SIZE][x // SIZE] == 'p' and isgame: continue
             screen.blit(image[mapList[y // SIZE][x // SIZE]], (x, y))

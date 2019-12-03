@@ -22,7 +22,7 @@ mapList = [['d' for i in range(windows_size[0] // SIZE)] for j in range(windows_
 mapList[1][1] = 'p'
 
 # example user setting
-isgame = True
+isgame = False
 MapID = 'jf342ad'
 MapName = 'heroes'
 playerID = 'antifly55'
