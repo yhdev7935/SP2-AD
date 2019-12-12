@@ -78,7 +78,7 @@ class MapListLayout(QWidget):
         model = QStringListModel([getListViewDataFormat("A", "B", "C", "D", "E")])
         self.ListView.setModel(model)
         self.ListView.setEditTriggers(QAbstractItemView.NoEditTriggers) # Uneditable QListView
-        self.ListView.doubleClicked.connect(self.ListViewPrintTest)
+        self.ListView.doubleClicked.connect(self.GameMain.hideWindow)
 
         # Page Move Layout
         PageMoveLayout = self.getPageMoveLayout()

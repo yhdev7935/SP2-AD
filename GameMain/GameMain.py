@@ -73,6 +73,12 @@ class GameMain:
     def quit(self):
         self.MainLayout.close()
 
+    def hideWindow(self):
+        self.MainLayout.hide()
+
+    def showWindow(self):
+        self.MainLayout.show()
+
 if __name__ == "__main__":
 
     import sys
