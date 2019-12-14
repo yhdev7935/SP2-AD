@@ -1,126 +1,58 @@
 import pygame
+import copy
+import sys
+from block import *
+from options import *
 from gameDraw import *
 from gameFileManage import *
+from gameEventManagement import *
+from customEventManagement import *
 
-pygame.init()
+class Game:
+    def __init__(self):
+        pygame.init()
 
-# not same with the server yet
+    def startgame(self, mapData, test=False):
+        init_game(self, mapData, test)
+        init_moving(self)
 
-windows_size = [500, 500]
-SIZE = 20
+        while True:
+            ok = gameKeyBoardEvent(self)
+            if not ok: break
+            hit_list = getHitBox(self)
+            moving(self)
+            ok = gameHitEvent(self, hit_list)
+            if ok == 'test access': return 'test access'
+            drawPicture(self, True)
 
-blockList = {
-    'a': 'a',
-    'b': 'b',
-    'c': 'c',
-    'd': 'd',
-    's': 's',
-    'p': 'p',
-}
+    def startcustom(self, mapData=None):
+        init_custom(self, mapData)
+        while True:
+            ok = customKeyBoardEvent(self)
+            if not ok: break
+            drawPicture(self, False)
 
-mapList = [['d' for i in range(windows_size[0] // SIZE)] for j in range(windows_size[1] // SIZE)]
-mapList[1][1] = 'p'
-mapList[1][3] = 's'
+    def endgame(self):
+        pygame.quit()
+        return False
 
-# example user setting
-isgame = True
-MapID = 'jf342ad'
-MapName = 'heroes'
-playerID = 'antifly55'
+if __name__ == '__main__':
+    mapID = 'yongha'
+    playerID = 'hyeongbin'
+    mapName = 'thisis'
 
-if isgame:
-    windows_msg = "play 공튀기기"
-    screen = pygame.display.set_mode(windows_size)
-    pygame.display.set_caption(windows_msg)
-    clock = pygame.time.Clock()
+    mapList = [['d' for i in range(windows_size[0] // SIZE)] for j in range(windows_size[1] // SIZE)]
+    mapList[1][1] = 'p'
+    mapList[1][3] = 's'
+    mapList[5][1] = 'b'
+    mapList[5][2] = 'a'
+    mapList[5][3] = 'a'
+    mapList[5][4] = 'a'
+    mapList[5][5] = 'b'
 
-    playerLeftMove = False
-    playerRightMove = False
-
-    for y in range(windows_size[1] // SIZE):
-        for x in range(windows_size[0] // SIZE):
-            if mapList[y][x] == 'p':
-                px = x * SIZE
-                py = y * SIZE
-                break
-
-    while True:
-        # event hook 따로 분리하지 않음
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                exit()
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT:
-                    playerLeftMove = True
-                elif event.key == pygame.K_RIGHT:
-                    playerRightMove = True
-            elif event.type == pygame.KEYUP:
-                if event.key == pygame.K_LEFT:
-                    playerLeftMove = False
-                elif event.key == pygame.K_RIGHT:
-                    playerRightMove = False
-
-        if playerLeftMove: px -= 1
-        if playerRightMove: px += 1
-        # 자동으로 중력에 의해서 움직이는 것
-        # 일반블럭을 밟았을때 처리
-        # 점프블럭을 밟았을때 처리
-        # 가시블럭을 밟았을때 처리
-        # 맵을 벗어났을 때 처리
-        if mapList[py // SIZE][px // SIZE] == 's':
-            mapList[py // SIZE][px // SIZE] = 'd'
-            for currentList in mapList:
-                if 's' in currentList:
-                    break
-
-        # draw UI
-        drawBackground(screen)
-        drawLine(screen, isgame)
-        drawBlock(screen, mapList)
-        screen.blit(image['p'], (px, py))
-
-        clock.tick(60)
-        pygame.display.update()
-
-    pygame.quit()
-
-
-else:
-    windows_msg = "custom 공튀기기"
-    screen = pygame.display.set_mode(windows_size)
-    pygame.display.set_caption(windows_msg)
-    clock = pygame.time.Clock()
-
-    block = 'd'
-
-    while True:
-        # event hook 따로 분리하지 않음
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                exit()
-            elif event.type == pygame.KEYDOWN:
-                pressed = pygame.key.get_pressed()
-                for char in blockList:
-                    if pressed[ord(char)]:
-                        block = blockList[char]
-
-                if pressed[ord('/')]: # save를 임시로 /으로 함
-                    save(mapList)
-
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                mouse_pos = pygame.mouse.get_pos()
-                x = mouse_pos[0] // SIZE
-                y = mouse_pos[1] // SIZE
-                mapList[y][x] = block
-
-        # draw UI
-        drawBackground(screen)
-        drawLine(screen, isgame)
-        drawBlock(screen, mapList)
-
-        clock.tick(60)
-        pygame.display.update()
-
-    pygame.quit()
+    g = Game()
+    g.mapID = 'yongha'
+    g.playerID = 'hyeongbin'
+    g.mapName = 'thisis'
+    #g.startgame(mapList)
+    g.startcustom(mapList)

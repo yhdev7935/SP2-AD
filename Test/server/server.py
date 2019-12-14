@@ -1,4 +1,5 @@
 import pickle
+import datetime
 from flask import Flask, request
 from flask_restful import Resource, Api
 
@@ -43,21 +44,10 @@ def writeDB():
 class TodoSimple(Resource):
     
     def get(self, command):
-        # ex) get(http://127.0.0.1:5000/mapID)
+        # ex) get(http://127.0.0.1:5000/mapID).json()
         mapID = command
-        mapDict = todos[mapID]
 
-        playerID = mapDict['playerID']
-        TimeUpload = mapDict['TimeUpload']
-        mapName = mapDict['mapName']
-        mapData = mapDict['mapData']
-
-        return "mapID: %s\n" \
-               "playerID: %s\n" \
-               "TimeUpload: %s\n" \
-               "mapName: %s\n" \
-               "mapData: %s" \
-               % (mapID, playerID, TimeUpload, mapName, mapData)
+        return todos[mapID]
 
     def put(self, command):
         global todos, recentMapID, playerMapID
@@ -70,25 +60,26 @@ class TodoSimple(Resource):
             mapName = request.form['mapName']
             mapData = request.form['mapData']
 
-            todos[mapID] = {'playerID': playerID, 'TimeUpload': TimeUpload, 'mapData': mapData, 'mapName': mapName}
+            todos[mapID] = {'mapID': mapID, 'playerID': playerID, 'TimeUpload': str(datetime.datetime.now()), 'mapData': mapData, 'mapName': mapName}
         
-            recentMapID.append(mapID)
+            recentMapID.append(todos[mapID])
             recentMapID = recentMapID[-500:]
         
             if playerID not in playerMapID:
                 playerMapID[playerID] = list()
-            playerMapID[playerID].append(mapID)
+            playerMapID[playerID].append(todos[mapID])
             
             writeDB()
             
         elif command == 'myMap': # myMap playerID
             # ex) put('http://127.0.0.1:5000/myMap', data={'playerID': playerID}).json()
             playerID = request.form['playerID']
-            return playerMapID[playerID] #playerMapID = {playerID:[MapID...]}
+            return playerMapID[playerID][::-1] #playerMapID = {playerID:[MapID...]}
 
         elif command == 'recentMap': # recentMap
             # ex) put('http://127.0.0.1:5000/recentMap').json()
-            return recentMapID
+            return recentMapID[::-1]
+
 
 api.add_resource(TodoSimple, '/<string:command>')
 

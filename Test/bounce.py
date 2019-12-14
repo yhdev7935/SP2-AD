@@ -14,12 +14,12 @@ WHITE = [255, 255, 255]
 RED = [255, 0, 0]
 # 게임루프
 x1 = 100;
-y1 = 10;
+y1 = 100;
 a1 = 30;
 b1 = 30
 gravity = 1
 speed = 1
-vel_y = 2
+vel_y = 4
 
 while True:
     for event in pygame.event.get():
@@ -28,7 +28,7 @@ while True:
             exit()
 
     screen.fill(WHITE)
-    pygame.draw.circle(screen, RED, (int(x1), int(y1)), 2, 1)
+    pygame.draw.circle(screen, RED, (int(x1), int(y1)), 20, 20)
     #pygame.draw.rect(screen, RED, (x1, y1, a1, b1), 0)
 
     y1 += vel_y * speed * gravity

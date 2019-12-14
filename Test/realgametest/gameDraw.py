@@ -17,19 +17,29 @@ blockList = {
 
 image = {char: pygame.image.load('image/%s.png' % char) for char in blockList.keys()}
 
-def drawBackground(screen):
-    screen.fill(WHITE)
+def drawBackground(self):
+    self.screen.fill(WHITE)
 
-def drawLine(screen, isgame=True):
+def drawLine(self, isgame=True):
     if isgame: return
     for y in range(0, windows_size[1], SIZE):
-        pygame.draw.line(screen, BLACK, (0, y), (windows_size[0], y))
+        pygame.draw.line(self.screen, BLACK, (0, y), (windows_size[0], y))
     for x in range(0, windows_size[0], SIZE):
-        pygame.draw.line(screen, BLACK, (x, 0), (x, windows_size[1]))
+        pygame.draw.line(self.screen, BLACK, (x, 0), (x, windows_size[1]))
 
 
-def drawBlock(screen, mapList, isgame=True):
+def drawBlock(self, isgame=True):
     for y in range(0, windows_size[1], SIZE):
         for x in range(0, windows_size[0], SIZE):
-            if mapList[y // SIZE][x // SIZE] == 'p' and isgame: continue
-            screen.blit(image[mapList[y // SIZE][x // SIZE]], (x, y))
+            if self.mapData[y // SIZE][x // SIZE] == 'p' and isgame: continue
+            self.screen.blit(image[self.mapData[y // SIZE][x // SIZE]], (x, y))
+
+def drawPicture(self, isgame=True):
+    drawBackground(self)
+    drawLine(self, isgame)
+    drawBlock(self, isgame)
+    if isgame: self.screen.blit(image['p'], (self.px, self.py))
+
+    pygame.time.Clock().tick(60)
+    pygame.display.update()
+
