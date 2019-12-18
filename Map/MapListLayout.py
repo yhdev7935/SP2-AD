@@ -45,28 +45,29 @@ class MapListLayout(QWidget):
         sortLabel.setFont(Font("Bahnschrift Condensed", 16).getFont())
         self.sortComboBox = QComboBox()
         self.sortComboBox.addItems(['recent Map', 'my Map'])
-        InputBox = QLineEdit('')
-        InputBox.setStyleSheet("border-style: outset; \
+        self.searchLine = QLineEdit('')
+        self.searchLine.setStyleSheet("border-style: outset; \
                         border-width: 5px; \
                         border-radius: 10px; \
                         border-color: grey; \
                         min-width: 10em; \
                         padding: 6px;")
-        SearchButton = MapListButton('Search',
+        self.searchButton = MapListButton('Search',
                                      connectLayout=self,
                                      x=100, y=35,
                                      fontsize=12)
 
         # Event
         self.sortComboBox.currentTextChanged.connect(self.changeListViewData) # if ComboBox Text Changed
+        self.searchButton.clicked.connect(self.changeListViewData)
 
         # Layout
         layout = QHBoxLayout()
         layout.addWidget(sortLabel)
         layout.addWidget(self.sortComboBox)
         layout.addStretch(1)
-        layout.addWidget(InputBox)
-        layout.addWidget(SearchButton)
+        layout.addWidget(self.searchLine)
+        layout.addWidget(self.searchButton)
         return layout
 
     # get ListView + Button Layout
@@ -144,9 +145,6 @@ class MapListLayout(QWidget):
         layout.setAlignment(Qt.AlignTop)
         return layout
 
-    def ListViewPrintTest(self, data):
-        print(data.data())
-
     def getMainLayout(self):
         return self.mainLayout
 
@@ -169,12 +167,27 @@ class MapListLayout(QWidget):
             return
 
         mapList = getSortedMapList(self.sortComboBox.currentText())
+        mapList = self.SearchFilter(mapList)
         startIndex = (self.getPage() - 1) * 5
         if startIndex > len(mapList) - 1: # OverFlow
             mapList = []
         else:
             mapList = mapList[startIndex : min(startIndex + 5, len(mapList))]
         self.ListView.setModel(convert_toModel(mapList))
+
+    def getSearchContent(self):
+        return self.searchLine.text()
+
+    def SearchFilter(self, mapList):
+        input = self.getSearchContent().replace(' ', '')
+        new_mapList = []
+        if len(input) == 0: return mapList
+        for map in mapList:
+            # playerID와 mapName에서만 비교
+            compare_string = map[playerID[0]] + map[mapName[0]]
+            if compare_string.find(input) != -1:
+                new_mapList += [map]
+        return new_mapList
 
     def __str__(self):
         return self.getMainLayout()
