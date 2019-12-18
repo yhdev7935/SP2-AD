@@ -24,9 +24,9 @@ def customKeyBoardEvent(self):
                 print('a')
                 if self.startgame(self.mapData, True) == 'test access':
                     save(self.mapID, self.playerID, self.init_mapData, self.mapName)
-                    self.mapData = self.init_mapData
+                    self.mapData = copy.deepcopy(self.init_mapData)
                     return self.endgame()
-                self.mapData = self.init_mapData
+                self.mapData = copy.deepcopy(self.init_mapData)
 
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()
