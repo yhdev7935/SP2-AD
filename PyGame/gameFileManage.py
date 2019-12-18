@@ -1,5 +1,6 @@
 from requests import get, put
 import datetime
+from MapUploadConfirm import *
 
 # it's not related recent test server
 

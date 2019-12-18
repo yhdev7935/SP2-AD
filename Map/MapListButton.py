@@ -6,6 +6,8 @@ from Font import *
 from GameMainButton import *
 from MessageBox import *
 from MapListLayout import *
+from gameMain import *
+from MapDataManagement import *
 
 class MapListButton(QPushButton):
     def __init__(self, text, connectLayout, x = 120, y = 60, fontname = "Bahnschrift Condensed", fontsize = 16):
@@ -34,9 +36,8 @@ class MapListButton(QPushButton):
         self.connectedLayout.setStatus("")
         text = self.sender().text()
 
-        # When Search Button Clicked
-        if text == "Search":
-            self.onSearchClick()
+        if text == "New":
+            self.onNewClick()
 
         if text == "Back":
             self.onBackClick()
@@ -48,8 +49,11 @@ class MapListButton(QPushButton):
         if text == ">":
             self.onRightMoveClick()
 
-    def onSearchClick(self):
-        pass
+    def onNewClick(self):
+        self.GameMain.hideWindow()
+        game = Game()
+        game.startcustom(genKey(), self.GameMain.playerdata.get(CLIENT_ID_KEY))
+        self.GameMain.showWindow()
 
     def onBackClick(self):
         self.GameMain.changetoGameMainLayout()

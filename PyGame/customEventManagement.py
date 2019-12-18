@@ -22,7 +22,7 @@ def customKeyBoardEvent(self):
                     self.block = blockList[char]
             if pressed[ord('/')]:  # save를 임시로 /으로 함
                 if self.startgame(True) == 'test access':
-                    save(self.mapID, self.playerID, self.init_mapData, self.mapName)
+                    save(self.mapID, self.playerID, self.init_mapData, 'defaultmapName')
                     self.mapData = copy.deepcopy(self.init_mapData)
                     return self.endgame()
                 self.mapData = copy.deepcopy(self.init_mapData)

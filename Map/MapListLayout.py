@@ -155,9 +155,10 @@ class MapListLayout(QWidget):
         raw_data = data.data()
         map_id = getListViewData(raw_data, mapID)
         map_data = convert_mapID_to_mapData(map_id)
-        print(map_data)
+        self.GameMain.hideWindow()
         game = Game(map_data)
         game.startgame(False)
+        self.GameMain.showWindow()
 
 
     def changeListViewData(self):

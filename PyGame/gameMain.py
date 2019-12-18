@@ -30,15 +30,13 @@ class Game:
             elif ok == False: return
             drawPicture(self, True)
 
-    def startcustom(self, mapID, playerID, mapName):
+    def startcustom(self, mapID='defaultmapID', playerID='defaultplayerID'):
         self.mapID = mapID
         self.playerID = playerID
-        self.mapName = mapName
         init_custom(self, self.mapData)
         while True:
             ok = customKeyBoardEvent(self)
             if ok == False: break
-            print(ok)
             drawPicture(self, False)
 
     def endgame(self):
