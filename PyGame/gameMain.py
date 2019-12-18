@@ -30,14 +30,13 @@ class Game:
             elif ok == False: return
             drawPicture(self, True)
 
-    def startcustom(self, mapID='defaultmapID', playerID='defaultplayerID'):
-        self.mapID = mapID
-        self.playerID = playerID
+    def startcustom(self):
         init_custom(self, self.mapData)
         while True:
             ok = customKeyBoardEvent(self)
             if ok == False: break
             drawPicture(self, False)
+        return self.mapData, self.testok
 
     def endgame(self):
         pygame.quit()
@@ -59,4 +58,4 @@ if __name__ == '__main__':
 
     g = Game(mapList)
     #g.startgame(mapList)
-    g.startcustom('defaultmapID', 'hyeongbin', 'hosisgod')
+    g.startcustom()

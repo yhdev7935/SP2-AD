@@ -52,7 +52,9 @@ class MapListButton(QPushButton):
     def onNewClick(self):
         self.GameMain.hideWindow()
         game = Game()
-        game.startcustom(genKey(), self.GameMain.playerdata.get(CLIENT_ID_KEY))
+        mapData, ok = game.startcustom()
+        if ok:
+            pass
         self.GameMain.showWindow()
 
     def onBackClick(self):

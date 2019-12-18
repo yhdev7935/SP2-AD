@@ -4,6 +4,7 @@ from options import *
 from gameFileManage import *
 
 def init_custom(self, mapData):
+    self.testok = False
     self.mapData = copy.deepcopy(mapData)
     windows_msg = "custom Finding Star"
     self.screen = pygame.display.set_mode(GAME_SIZE)
@@ -22,8 +23,8 @@ def customKeyBoardEvent(self):
                     self.block = blockList[char]
             if pressed[ord('/')]:  # save를 임시로 /으로 함
                 if self.startgame(True) == 'test access':
-                    save(self.mapID, self.playerID, self.init_mapData, 'defaultmapName')
                     self.mapData = copy.deepcopy(self.init_mapData)
+                    self.testok = True
                     return self.endgame()
                 self.mapData = copy.deepcopy(self.init_mapData)
                 try:
