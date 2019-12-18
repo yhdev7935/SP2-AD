@@ -82,10 +82,12 @@ class MapListLayout(QWidget):
     def getListViewLayout(self):
         # ListView Widget
         self.ListView = QListView()
-        model = QStringListModel([getListViewDataFormat("A", "B", "C", "D", "E")])
+        self.ListView.setFont(Font("Bahnschrift Condensed", 12).getFont())
+        lvdf = getListViewDataFormat("A", "B", "C", "D")
+        model = QStringListModel([lvdf, lvdf, lvdf, lvdf, lvdf])
         self.ListView.setModel(model)
         self.ListView.setEditTriggers(QAbstractItemView.NoEditTriggers) # Uneditable QListView
-        self.ListView.doubleClicked.connect(self.GameMain.hideWindow)
+        self.ListView.doubleClicked.connect(self.getMapRawData)
 
         # Page Move Layout
         PageMoveLayout = self.getPageMoveLayout()
@@ -146,6 +148,9 @@ class MapListLayout(QWidget):
 
     def setStatus(self, msg):
         self.StatusBar.showMessage(msg)
+
+    def getMapRawData(self, data):
+        print(data.data())
 
     def __str__(self):
         return self.getMainLayout()

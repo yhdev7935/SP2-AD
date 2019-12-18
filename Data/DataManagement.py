@@ -51,15 +51,13 @@ mapID = ["mapID", 0]
 playerID = ["playerID", 1]
 TimeUpload = ["TimeUpload", 2]
 mapName = ["mapName", 3]
-mapData = ["mapData", 4]
 
-def getListViewDataFormat(mapID, playerID, TimeUpload, mapName, mapData):
+def getListViewDataFormat(mapID, playerID, TimeUpload, mapName):
     return "mapID: %s\n" \
            "playerID: %s\n" \
            "TimeUpload: %s\n" \
-           "mapName: %s\n" \
-           "mapData: %s"\
-           % (mapID, playerID, TimeUpload, mapName, mapData)
+           "mapName: %s" \
+           % (mapID, playerID, TimeUpload, mapName)
 
 def getListViewData(data, dataEnum) -> string:
     data = data.split('\n')[dataEnum[1]] # select line
@@ -67,7 +65,7 @@ def getListViewData(data, dataEnum) -> string:
     return data
 
 if __name__ == "__main__":
-    data = getListViewDataFormat("A", "B", "C", "D", "E")
+    data = getListViewDataFormat("A", "B", "C", "D")
     print(getListViewData(data, mapData))
 
 
