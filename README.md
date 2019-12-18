@@ -8,6 +8,6 @@
 * Finding Star (별을 찾아서)
 
 ## import
-* PyQt5, pygame, Flask, socket, pickle, urllib, requests
+* PyQt5, pygame, Flask, socket, pickle, urllib, requests, block, scipy
 
 

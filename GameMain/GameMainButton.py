@@ -17,6 +17,13 @@ class GameMainButton(QPushButton):
         self.setFixedSize(120, 60)
         self.clicked.connect(self.buttonClicked)
         self.GameMain = GameMain
+        self.setFlat(True)
+        self.setStyleSheet("border-style: outset; \
+                border-width: 5px; \
+                border-radius: 10px; \
+                border-color: grey; \
+                min-width: 10em; \
+                padding: 6px;")
 
     # Equivalent with getButton Method
     def __str__(self):
@@ -41,6 +48,7 @@ class GameMainButton(QPushButton):
             pass
 
     def onStartClick(self):
+        self.GameMain.MapUploadConfirm.showMapNameDialog()
         pass
 
     def onMapClick(self):

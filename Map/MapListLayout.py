@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import *
 from MapListButton import *
 from Font import *
 from DataManagement import *
+from Font import *
 
 
 class MapListLayout(QWidget):
@@ -36,14 +37,20 @@ class MapListLayout(QWidget):
     # get Search Layout
     def getSearchLayout(self):
         # Widget
-        sortLabel = QLabel('Sort: ')
+        sortLabel = QLabel('Sort')
+        sortLabel.setFont(Font("Bahnschrift Condensed", 16).getFont())
         sortComboBox = QComboBox()
         sortComboBox.addItems(['My Map', 'Recent Map'])
         InputBox = QLineEdit('')
+        InputBox.setStyleSheet("border-style: outset; \
+                        border-width: 5px; \
+                        border-radius: 10px; \
+                        border-color: grey; \
+                        min-width: 10em; \
+                        padding: 6px;")
         SearchButton = MapListButton('Search',
                                      connectLayout=self,
                                      x=100, y=35,
-                                     fontname="Century Gothic",
                                      fontsize=12)
 
         # Event
@@ -93,15 +100,13 @@ class MapListLayout(QWidget):
         # Widget
         self.LeftMove = MapListButton('<',
                                      connectLayout=self,
-                                     x=40, y=40,
-                                     fontname="Century Gothic")
+                                     x=40, y=40)
         self.Page = QLabel('1')
         PageFont = Font('Century Gothic', 13)
         self.Page.setFont(PageFont.getFont())
         self.RightMove = MapListButton('>',
                                       connectLayout=self,
-                                      x=40, y=40,
-                                      fontname="Century Gothic")
+                                      x=40, y=40)
 
         # layout
         layout = QHBoxLayout()
@@ -117,16 +122,13 @@ class MapListLayout(QWidget):
         # Button Widgets
         self.newButton = MapListButton('New',
                                       connectLayout=self,
-                                      x=120, y=60,
-                                      fontname="Century Gothic")
+                                      x=120, y=60)
         self.randomButton = MapListButton('Random',
                                           connectLayout=self,
-                                          x=120, y=60,
-                                          fontname="Century Gothic")
+                                          x=120, y=60)
         self.backButton = MapListButton('Back',
                                        connectLayout=self,
-                                       x=120, y=60,
-                                       fontname="Century Gothic")
+                                       x=120, y=60)
 
         # layout
         layout = QVBoxLayout()

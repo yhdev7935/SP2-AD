@@ -11,6 +11,7 @@ from DataManagement import *
 from options import *
 from LoadingThread import *
 from MessageBox import *
+from MapUploadConfirm import *
 
 class GameMain:
 
@@ -28,6 +29,8 @@ class GameMain:
         self.serverVersion = getServerVersion()
         self.loadmsg = "Loading Main Layout..."
         self.GameMainLayout = GameMainLayout(self)
+        self.loadmsg = "Loading Map Upload Confirm System"
+        self.MapUploadConfirm = MapUploadConfirm(self)
         self.MainLayout = self.GameMainLayout
         self.loadmsg = "Complete!"
 
@@ -86,4 +89,4 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     Game = GameMain()
     Game.start()
-    sys.exit(app.exec_())
+    sys.exit(app.exec_() + 20191602)
