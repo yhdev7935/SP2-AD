@@ -3,18 +3,21 @@ import datetime
 
 # it's not related recent test server
 
-def save(mapName, mapID, playerID, mapList):
+def save(mapID, playerID, mapData, mapName):
     playerCount = 0
     starCount = 0
 
-    for currentList in mapList:
-        if 'p' in currentList:
-            playerCount += 1
-        elif 's' in currentList:
-            starCount += 1
+    for currentList in mapData:
+        for block in currentList:
+            if block == 'p':
+                playerCount += 1
+            elif block == 's':
+                starCount += 1
+
+    print(playerCount, starCount)
 
     if playerCount != 1: return
     if starCount == 0: return
 
-    timeUpload = datetime.datetime.now()
-    put("http://127.0.0.1:5000/upload", data={'mapName': mapName, 'mapID': mapID, 'playerID': playerID, 'timeUpload': timeUpload, 'mapList': mapList})
+    TimeUpload = datetime.datetime.now()
+    put("http://127.0.0.1:5000/upload", data={'mapID': mapID, 'playerID': playerID, 'TimeUpload': str(TimeUpload), 'mapData': mapData, 'mapName': mapName})
