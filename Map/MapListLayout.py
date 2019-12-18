@@ -8,6 +8,7 @@ from Font import *
 from FileDataManagement import *
 from MapDataManagement import *
 from Font import *
+from gameMain import *
 
 
 class MapListLayout(QWidget):
@@ -157,6 +158,8 @@ class MapListLayout(QWidget):
         map_id = getListViewData(raw_data, mapID)
         map_data = convert_mapID_to_mapData(map_id)
         print(map_data)
+        game = Game(map_data)
+        game.startgame(False)
 
 
     def changeListViewData(self):

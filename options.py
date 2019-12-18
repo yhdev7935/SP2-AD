@@ -4,6 +4,16 @@ import os
 
 GAME_SIZE = [500, 500]
 GAME_TITLE = "Finding Star"
+SIZE = 20
+
+blockList = {
+    'a': 'a',
+    'b': 'b',
+    'c': 'c',
+    'd': 'd',
+    's': 's',
+    'p': 'p',
+}
 
 
 # DO NOT EDIT

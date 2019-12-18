@@ -11,8 +11,6 @@ from customEventManagement import *
 class Game:
     def __init__(self, mapData=None):
         pygame.init()
-        if mapData == None:
-            mapData = [['d' for i in range(windows_size[0] // SIZE)] for j in range(windows_size[1] // SIZE)]
         self.mapData = mapData
         self.ptime = 0
 
@@ -27,13 +25,14 @@ class Game:
             moving(self)
             ok = gameHitEvent(self, hit_list)
             if ok == 'test access': return 'test access'
+            elif ok == False: return
             drawPicture(self, True)
 
     def startcustom(self, mapID, playerID, mapName):
-        init_custom(self, self.mapData)
         self.mapID = mapID
         self.playerID = playerID
         self.mapName = mapName
+        init_custom(self, self.mapData)
         while True:
             ok = customKeyBoardEvent(self)
             if not ok: break
@@ -48,7 +47,7 @@ if __name__ == '__main__':
     playerID = 'hyeongbin'
     mapName = 'thisis'
 
-    mapList = [['d' for i in range(windows_size[0] // SIZE)] for j in range(windows_size[1] // SIZE)]
+    mapList = [['d' for i in range(GAME_SIZE[0] // SIZE)] for j in range(GAME_SIZE[1] // SIZE)]
     mapList[1][1] = 'p'
     mapList[1][3] = 's'
     mapList[5][1] = 'b'
@@ -59,4 +58,4 @@ if __name__ == '__main__':
 
     g = Game(mapList)
     #g.startgame(mapList)
-    g.startcustom()
+    g.startcustom('defaultmapID', 'hyeongbin', 'hosisgod')
