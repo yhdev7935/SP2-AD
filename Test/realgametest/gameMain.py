@@ -11,6 +11,7 @@ from customEventManagement import *
 class Game:
     def __init__(self):
         pygame.init()
+        self.ptime = 0
 
     def startgame(self, mapData, test=False):
         init_game(self, mapData, test)

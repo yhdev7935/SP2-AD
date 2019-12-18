@@ -32,13 +32,20 @@ def drawBlock(self, isgame=True):
     for y in range(0, windows_size[1], SIZE):
         for x in range(0, windows_size[0], SIZE):
             if self.mapData[y // SIZE][x // SIZE] == 'p' and isgame: continue
-            self.screen.blit(image[self.mapData[y // SIZE][x // SIZE]], (x, y))
+            elif self.mapData[y // SIZE][x // SIZE] == 'p': self.screen.blit(image['p'].subsurface(0, 0, 20, 20), (x, y))
+            else: self.screen.blit(image[self.mapData[y // SIZE][x // SIZE]], (x, y))
 
 def drawPicture(self, isgame=True):
     drawBackground(self)
     drawLine(self, isgame)
     drawBlock(self, isgame)
-    if isgame: self.screen.blit(image['p'], (self.px, self.py))
+
+    if self.ptime == 10: self.ptime = 0
+    self.ptime += 1
+
+    if isgame:
+        recentimg = image['p'].subsurface((20*self.ptime, 0, 20, 20))
+        self.screen.blit(recentimg, (self.px, self.py))
 
     pygame.time.Clock().tick(60)
     pygame.display.update()

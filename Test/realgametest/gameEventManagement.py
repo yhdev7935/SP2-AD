@@ -75,13 +75,8 @@ def gameHitEvent(self, hit_list):
     blocks = ['a', 'b']
     if hit_list['a'] != [] or hit_list['b'] != []:
 
-        if (checkIn(self, -4, 10, blocks) or checkIn(self, -4, 0, blocks) or checkIn(self, -4, 20, blocks)) and self.gravity == -1:
-            self.py = self.before_py
-            self.py -= self.vel_y * (self.speed+0.12) * self.gravity
-            self.gravity = 1
-            self.speed = 0
-        elif self.playerLeftMove and checkIn(self, 10, -5, blocks):
-            self.px = self.px + 6
+        if self.playerLeftMove and checkIn(self, 10, -5, blocks):
+            self.px = self.px + 4
             if checkIn(self, 10, 10, blocks):
                 self.px = self.before_px
                 self.py = self.before_py
@@ -90,6 +85,12 @@ def gameHitEvent(self, hit_list):
             if checkIn(self, 10, 10, blocks):
                 self.px = self.before_px
                 self.py = self.before_py
+
+        if (checkIn(self, -4, 10, blocks) or checkIn(self, -4, 0, blocks) or checkIn(self, -4, 20, blocks)) and self.gravity == -1:
+            self.py = self.before_py
+            self.py -= self.vel_y * (self.speed+0.12) * self.gravity
+            self.gravity = 1
+            self.speed = 0
 
         elif (checkIn(self, 20, 10, 'b') or checkIn(self, 20, 0, 'b') or checkIn(self, 20, 20, 'b')) and self.gravity == 1:
             self.py = self.before_py
@@ -102,13 +103,14 @@ def gameHitEvent(self, hit_list):
             self.gravity = -1
             self.speed = 1
         elif self.beforepress=='left':
-            self.px = self.px + 6
+            self.px = self.px + 4
         elif self.beforepress=='right':
             self.px = self.px - 6
 
         else:
             self.px = self.before_px
             self.py = self.before_py
+            print('g')
 
     if hit_list['c'] != [] or self.py > windows_size[1]:
         self.px = self.init_px
@@ -149,7 +151,7 @@ def makeBlock(self):
             if self.mapData[y][x] == 'p':
                 self.init_px = x * SIZE
                 self.init_py = y * SIZE
-                self.player = Block(image[self.mapData[y][x]].convert_alpha())
+                self.player = Block(image['p'].subsurface((0, 0, 20, 20)).convert_alpha())
             elif self.mapData[y][x] != 'd' or self.mapData[y][x] != 'p':
                 block = Block(image[self.mapData[y][x]].convert_alpha())
                 block.rect.x = x * SIZE
