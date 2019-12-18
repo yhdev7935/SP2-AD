@@ -76,7 +76,7 @@ def gameHitEvent(self, hit_list):
     if hit_list['a'] != [] or hit_list['b'] != []:
 
         if self.playerLeftMove and checkIn(self, 10, -5, blocks):
-            self.px = self.px + 4
+            self.px = self.px + 6
             if checkIn(self, 10, 10, blocks):
                 self.px = self.before_px
                 self.py = self.before_py
@@ -103,7 +103,7 @@ def gameHitEvent(self, hit_list):
             self.gravity = -1
             self.speed = 1
         elif self.beforepress=='left':
-            self.px = self.px + 4
+            self.px = self.px + 6
         elif self.beforepress=='right':
             self.px = self.px - 6
 
@@ -118,7 +118,7 @@ def gameHitEvent(self, hit_list):
         self.speed = 0
         self.gravity = -1
         # print('init')
-        self.mapData = self.init_mapData
+        self.mapData = copy.deepcopy(self.init_mapData)
 
     if hit_list['s'] != []:
         y = int((self.py + 10) // SIZE)
@@ -140,7 +140,7 @@ def init_game(self, mapData, test):
     pygame.display.set_caption(windows_msg)
     self.mapData = copy.deepcopy(mapData)
     makeBlock(self)
-    self.init_mapData = copy.deepcopy(self.mapData)
+    self.init_mapData = copy.deepcopy(mapData)
 
 def makeBlock(self):
     self.block_list = dict()
