@@ -9,12 +9,17 @@ from gameEventManagement import *
 from customEventManagement import *
 
 class Game:
-    def __init__(self):
+    def __init__(self, mapID=None, playerID=None, TimeUpload=None, mapData=None, mapName=None):
         pygame.init()
+        self.mapID = mapID
+        self.playerID = playerID
+        self.TimeUpload = TimeUpload
+        self.mapData = mapData
+        self.mapName = mapName
         self.ptime = 0
 
-    def startgame(self, mapData, test=False):
-        init_game(self, mapData, test)
+    def startgame(self, test=False):
+        init_game(self, self.mapData, test)
         init_moving(self)
 
         while True:
@@ -26,8 +31,8 @@ class Game:
             if ok == 'test access': return 'test access'
             drawPicture(self, True)
 
-    def startcustom(self, mapData=None):
-        init_custom(self, mapData)
+    def startcustom(self):
+        init_custom(self, self.mapData)
         while True:
             ok = customKeyBoardEvent(self)
             if not ok: break
@@ -51,9 +56,6 @@ if __name__ == '__main__':
     mapList[5][4] = 'a'
     mapList[5][5] = 'b'
 
-    g = Game()
-    g.mapID = 'yongha'
-    g.playerID = 'hyeongbin'
-    g.mapName = 'thisis'
+    g = Game('yongha', 'hyeongbin', '20191234', mapList, 'sigong')
     #g.startgame(mapList)
-    g.startcustom(mapList)
+    g.startcustom()

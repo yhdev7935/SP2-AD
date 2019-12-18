@@ -9,9 +9,10 @@ api = Api(app)
 todos = dict()
 recentMapID = list()
 playerMapID = dict()
+mapIDList = list()
 
 def readDB():
-    global todos, recentMapID, playerMapID
+    global todos, recentMapID, playerMapID, mapIDList
     try:
         fH = open("todos.dat", 'rb')
         todos = pickle.load(fH)
@@ -30,8 +31,14 @@ def readDB():
     except FileNotFoundError as e:
         playerMapID = dict()
 
+    try:
+        fH = open("mapIDList.dat", 'rb')
+        mapIDList = pickle.load(fH)
+    except FileNotFoundError as e:
+        mapIDList = list()
+
 def writeDB():
-    global todos, recentMapID, playerMapID
+    global todos, recentMapID, playerMapID, mapIDList
     fH = open("todos.dat", 'wb')
     pickle.dump(todos, fH)
     
@@ -41,13 +48,16 @@ def writeDB():
     fH = open("playerMapID.dat", 'wb')
     pickle.dump(playerMapID, fH)
 
+    fH = open("mapIDList.dat", 'wb')
+    pickle.dump(mapIDList, fH)
+
 class TodoSimple(Resource):
     
     def get(self, command):
         # ex) get(http://127.0.0.1:5000/mapID).json()
         mapID = command
-
-        return todos[mapID]
+        recentDict = todos[mapID]
+        return recentDict['mapData']
 
     def put(self, command):
         global todos, recentMapID, playerMapID
@@ -60,12 +70,16 @@ class TodoSimple(Resource):
             mapName = request.form['mapName']
             mapData = request.form['mapData']
 
+            if mapID in mapIDList:
+                print(mapID, '가 중복됨')
+
             todos[mapID] = {'mapID': mapID, 'playerID': playerID, 'TimeUpload': str(datetime.datetime.now()), 'mapData': mapData, 'mapName': mapName}
-        
+
+            mapIDList.append(mapID)
             recentMapID.append(todos[mapID])
             recentMapID = recentMapID[-500:]
         
-            if playerID not in playerMapID:
+            if not playerID in playerMapID:
                 playerMapID[playerID] = list()
             playerMapID[playerID].append(todos[mapID])
             

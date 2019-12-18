@@ -14,8 +14,6 @@ def save(mapID, playerID, mapData, mapName):
             elif block == 's':
                 starCount += 1
 
-    print(playerCount, starCount)
-
     if playerCount != 1: return
     if starCount == 0: return
 

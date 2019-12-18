@@ -74,15 +74,16 @@ def checkIn(self, y, x, compare):
 def gameHitEvent(self, hit_list):
     blocks = ['a', 'b']
     if hit_list['a'] != [] or hit_list['b'] != []:
-
         if self.playerLeftMove and checkIn(self, 10, -5, blocks):
             self.px = self.px + 6
-            if checkIn(self, 10, 10, blocks):
+            hit_list_after = getHitBox(self)
+            if hit_list_after in blocks:
                 self.px = self.before_px
                 self.py = self.before_py
         elif self.playerRightMove and checkIn(self, 10, 25, blocks):
             self.px = self.px - 6
-            if checkIn(self, 10, 10, blocks):
+            hit_list_after = getHitBox(self)
+            if hit_list_after in blocks:
                 self.px = self.before_px
                 self.py = self.before_py
 
@@ -104,8 +105,16 @@ def gameHitEvent(self, hit_list):
             self.speed = 1
         elif self.beforepress=='left':
             self.px = self.px + 6
+            hit_list_after = getHitBox(self)
+            if hit_list_after in blocks:
+                self.px = self.before_px
+                self.py = self.before_py
         elif self.beforepress=='right':
             self.px = self.px - 6
+            hit_list_after = getHitBox(self)
+            if hit_list_after in blocks:
+                self.px = self.before_px
+                self.py = self.before_py
 
         else:
             self.px = self.before_px
@@ -135,7 +144,7 @@ def gameHitEvent(self, hit_list):
 def init_game(self, mapData, test):
     pygame.init()
     self.test = test
-    windows_msg = "play 공튀기기"
+    windows_msg = "Finding Star"
     self.screen = pygame.display.set_mode(windows_size)
     pygame.display.set_caption(windows_msg)
     self.mapData = copy.deepcopy(mapData)
