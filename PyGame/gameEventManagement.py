@@ -139,7 +139,7 @@ def gameHitEvent(self, hit_list):
                 existStar = True
                 break
         if self.test and not existStar: return 'test access'
-        elif existStar: return self.endgame()
+        elif not existStar: return self.endgame()
     return True
 
 def init_game(self, mapData, test):

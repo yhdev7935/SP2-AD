@@ -24,7 +24,7 @@ def getListViewData(data, dataEnum) -> str:
     data = data.split(':')[1][1:]
     return data
 
-def genKey(self, _len=20):
+def genKey(_len=20):
     ret = ""
     string_pool = string.ascii_letters + string.digits
     for i in range(_len):

@@ -11,6 +11,8 @@ from customEventManagement import *
 class Game:
     def __init__(self, mapData=None):
         pygame.init()
+        if mapData == None:
+            mapData = [['d' for i in range(GAME_SIZE[0] // SIZE)] for j in range(GAME_SIZE[1] // SIZE)]
         self.mapData = mapData
         self.ptime = 0
 
@@ -35,7 +37,8 @@ class Game:
         init_custom(self, self.mapData)
         while True:
             ok = customKeyBoardEvent(self)
-            if not ok: break
+            if ok == False: break
+            print(ok)
             drawPicture(self, False)
 
     def endgame(self):
