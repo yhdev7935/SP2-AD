@@ -151,8 +151,11 @@ class MapListLayout(QWidget):
     def setStatus(self, msg):
         self.StatusBar.showMessage(msg)
 
-    def processMapRawData(self, data):
-        raw_data = data.data()
+    def processMapRawData(self, data, already_rawdata = False):
+        if not already_rawdata:
+            raw_data = data.data()
+        else:
+            raw_data = data
         map_id = getListViewData(raw_data, mapID)
         map_data = convert_mapID_to_mapData(map_id)
         self.GameMain.hideWindow()

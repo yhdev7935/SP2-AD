@@ -3,7 +3,6 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from options import *
 from Font import *
-from GameMainButton import *
 from MessageBox import *
 from MapListLayout import *
 
@@ -48,7 +47,7 @@ class GameMainButton(QPushButton):
             pass
 
     def onStartClick(self):
-        self.GameMain.MapUploadConfirm.showMapNameDialog()
+        print("아직 튜토리얼이 없는 걸요?")
         pass
 
     def onMapClick(self):

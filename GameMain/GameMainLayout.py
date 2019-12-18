@@ -5,10 +5,11 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from options import *
 from Font import *
-from GameMainButton import *
+import GameMainButton
 from FileDataManagement import *
 from MapDataManagement import *
 from Internet import *
+
 
 class GameMainLayout(QWidget):
 
@@ -56,7 +57,7 @@ class GameMainLayout(QWidget):
         Label.setFont(font.getFont())
 
         # get Client, Server Version
-        ClientVersion = str(VERSION) # import options
+        ClientVersion = str(VERSION)  # import options
         ServerVersion = str(self.GameMain.serverVersion)
 
         # get Client ID
@@ -64,7 +65,7 @@ class GameMainLayout(QWidget):
         ClientID = data.get(CLIENT_ID_KEY)
 
         # Label Text
-        LabelText = "Client Ver: %s\n Server Ver: %s\n Client ID: %s"\
+        LabelText = "Client Ver: %s\n Server Ver: %s\n Client ID: %s" \
                     % (ClientVersion, ServerVersion, ClientID)
 
         Label.setText(LabelText)
@@ -85,7 +86,7 @@ class GameMainLayout(QWidget):
         return ret
 
     def makeButtonWidget(self, text):
-        button = GameMainButton(text, self.GameMain)
+        button = GameMainButton.GameMainButton(text, self.GameMain)
         return button
 
     def makeButtonLayout(self, button):
@@ -106,11 +107,9 @@ class GameMainLayout(QWidget):
 
 
 if __name__ == '__main__':
-
     import sys
 
     app = QApplication(sys.argv)
     GMLayout = GameMainLayout()
     GMLayout.show()
     sys.exit(app.exec_())
-

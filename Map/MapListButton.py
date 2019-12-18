@@ -8,6 +8,7 @@ from MessageBox import *
 from MapListLayout import *
 from gameMain import *
 from MapDataManagement import *
+import random
 
 class MapListButton(QPushButton):
     def __init__(self, text, connectLayout, x = 120, y = 60, fontname = "Bahnschrift Condensed", fontsize = 16):
@@ -39,6 +40,9 @@ class MapListButton(QPushButton):
         if text == "New":
             self.onNewClick()
 
+        if text == "Random":
+            self.onRandomClick()
+
         if text == "Back":
             self.onBackClick()
 
@@ -52,10 +56,15 @@ class MapListButton(QPushButton):
     def onNewClick(self):
         self.GameMain.hideWindow()
         game = Game()
-        mapData, ok = game.startcustom()
+        map_data, ok = game.startcustom()
         if ok:
-            pass
+            self.GameMain.MapUploadConfirm.showMapNameDialog(map_data, self.connectedLayout)
         self.GameMain.showWindow()
+
+    def onRandomClick(self):
+        mapList = getSortedMapList(self.connectedLayout.sortComboBox.currentText())
+        ran_idx = random.randrange(len(mapList))
+        self.connectedLayout.processMapRawData(convert_MaptoString(mapList[ran_idx]), already_rawdata = True)
 
     def onBackClick(self):
         self.GameMain.changetoGameMainLayout()

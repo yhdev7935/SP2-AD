@@ -9,6 +9,7 @@ mapID = ["mapID", 0]
 playerID = ["playerID", 1]
 TimeUpload = ["TimeUpload", 2]
 mapName = ["mapName", 3]
+mapData = ["mapData", 4]
 
 
 def getListViewDataFormat(mapID_p, playerID_p, TimeUpload_p, mapName_p):
@@ -45,6 +46,11 @@ def convert_mapID_to_mapData(mapID):
         return data
     return None
 
+def upload(upload_data):
+    if getDataServerOnline():
+        url = "http://" + DATA_SERVER_IP + "/upload"
+        put(url, data=upload_data)
+
 def getSortedMapList(key):
     if getDataServerOnline():
         return getKeyData(str(key).replace(' ', ''))
@@ -54,13 +60,17 @@ def convert_toModel(map_data):
     # covert model
     model_data = []
     for map in map_data:
-        format = getListViewDataFormat(mapID_p=map[mapID[0]],
-                                            playerID_p=map[playerID[0]],
-                                            TimeUpload_p=map[TimeUpload[0]],
-                                            mapName_p=map[mapName[0]]
-                                            )
+        format = convert_MaptoString(map)
         model_data += [format]
     return QStringListModel(model_data)
+
+
+def convert_MaptoString(map):
+    return getListViewDataFormat(mapID_p=map[mapID[0]],
+                                   playerID_p=map[playerID[0]],
+                                   TimeUpload_p=map[TimeUpload[0]],
+                                   mapName_p=map[mapName[0]]
+                                   )
 
 if __name__ == "__main__":
     data = getListViewDataFormat("A", "B", "C", "D")
