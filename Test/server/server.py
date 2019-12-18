@@ -68,7 +68,7 @@ class TodoSimple(Resource):
             playerID = request.form['playerID']
             TimeUpload = request.form['TimeUpload']
             mapName = request.form['mapName']
-            mapData = request.form['mapData']
+            mapData = eval(request.form['mapData'])
 
             if mapID in mapIDList:
                 print(mapID, '가 중복됨')
