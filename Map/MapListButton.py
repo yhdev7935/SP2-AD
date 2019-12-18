@@ -57,10 +57,12 @@ class MapListButton(QPushButton):
     def onLeftMoveClick(self):
         currentPage = int(self.connectedLayout.Page.text())
         self.updatePage(currentPage - 1)
+        self.connectedLayout.changeListViewData()
 
     def onRightMoveClick(self):
         currentPage = int(self.connectedLayout.Page.text())
         self.updatePage(currentPage + 1)
+        self.connectedLayout.changeListViewData()
 
     def updatePage(self, toPageNumber):
         if toPageNumber <= 0:
