@@ -1,5 +1,6 @@
 import socket, urllib.request
 from options import *
+from requests import get, put
 
 def InternetConnected():
     ip = socket.gethostbyname(socket.gethostname())
@@ -15,6 +16,15 @@ def getServerVersion():
         return str(data.read().decode('utf-8'))
     except urllib.error.URLError:
         return SERVER_DISCONNECTED
+
+def getDataServerOnline():
+    url = "http://" + DATA_SERVER_IP + "/"
+    try:
+        data = urllib.request.urlopen(url)
+    except urllib.error.HTTPError:
+        return True
+    except:
+        return False
 
 
 if __name__ == "__main__":

@@ -87,8 +87,11 @@ class TodoSimple(Resource):
             
         elif command == 'myMap': # myMap playerID
             # ex) put('http://127.0.0.1:5000/myMap', data={'playerID': playerID}).json()
-            playerID = request.form['playerID']
-            return playerMapID[playerID][::-1] #playerMapID = {playerID:[MapID...]}
+            try:
+                playerID = request.form['playerID']
+                return playerMapID[playerID][::-1] #playerMapID = {playerID:[MapID...]}
+            except:
+                return []
 
         elif command == 'recentMap': # recentMap
             # ex) put('http://127.0.0.1:5000/recentMap').json()

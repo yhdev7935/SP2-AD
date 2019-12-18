@@ -6,7 +6,8 @@ from PyQt5.QtWidgets import *
 from options import *
 from Font import *
 from GameMainButton import *
-from DataManagement import *
+from FileDataManagement import *
+from MapDataManagement import *
 from Internet import *
 
 class GameMainLayout(QWidget):

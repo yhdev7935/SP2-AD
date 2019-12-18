@@ -7,7 +7,8 @@ from options import *
 from Font import *
 from GameMainButton import *
 from GameMainLayout import *
-from DataManagement import *
+from FileDataManagement import *
+from MapDataManagement import *
 from options import *
 from LoadingThread import *
 from MessageBox import *
@@ -42,7 +43,7 @@ class GameMain:
     def initClientID(self):
         KEY = CLIENT_ID_KEY
         if self.playerdata.get(KEY) is None:
-            randomID = self.playerdata.genKey()
+            randomID = genKey()
             self.playerdata.set(KEY, randomID)
 
     # set Status Message

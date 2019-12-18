@@ -1,11 +1,12 @@
 # Layout of GameMain
 
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from MapListButton import *
 from Font import *
-from DataManagement import *
+from FileDataManagement import *
+from MapDataManagement import *
 from Font import *
 
 
@@ -18,6 +19,8 @@ class MapListLayout(QWidget):
         self.initUI()
         self.setWindowTitle("Map List!")
         self.resize(900, 800)
+
+        self.changeListViewData()
 
     def initUI(self):
         # Vertical Layout
@@ -39,8 +42,8 @@ class MapListLayout(QWidget):
         # Widget
         sortLabel = QLabel('Sort')
         sortLabel.setFont(Font("Bahnschrift Condensed", 16).getFont())
-        sortComboBox = QComboBox()
-        sortComboBox.addItems(['My Map', 'Recent Map'])
+        self.sortComboBox = QComboBox()
+        self.sortComboBox.addItems(['recent Map', 'my Map'])
         InputBox = QLineEdit('')
         InputBox.setStyleSheet("border-style: outset; \
                         border-width: 5px; \
@@ -54,12 +57,12 @@ class MapListLayout(QWidget):
                                      fontsize=12)
 
         # Event
-        sortComboBox.currentTextChanged.connect(print) # if ComboBox Text Changed
+        self.sortComboBox.currentTextChanged.connect(self.changeListViewData) # if ComboBox Text Changed
 
         # Layout
         layout = QHBoxLayout()
         layout.addWidget(sortLabel)
-        layout.addWidget(sortComboBox)
+        layout.addWidget(self.sortComboBox)
         layout.addStretch(1)
         layout.addWidget(InputBox)
         layout.addWidget(SearchButton)
@@ -83,11 +86,8 @@ class MapListLayout(QWidget):
         # ListView Widget
         self.ListView = QListView()
         self.ListView.setFont(Font("Bahnschrift Condensed", 12).getFont())
-        lvdf = getListViewDataFormat("A", "B", "C", "D")
-        model = QStringListModel([lvdf, lvdf, lvdf, lvdf, lvdf])
-        self.ListView.setModel(model)
         self.ListView.setEditTriggers(QAbstractItemView.NoEditTriggers) # Uneditable QListView
-        self.ListView.doubleClicked.connect(self.getMapRawData)
+        self.ListView.doubleClicked.connect(self.processMapRawData)
 
         # Page Move Layout
         PageMoveLayout = self.getPageMoveLayout()
@@ -120,6 +120,9 @@ class MapListLayout(QWidget):
         layout.setAlignment(Qt.AlignCenter)
         return layout
 
+    def getPage(self):
+        return int(self.Page.text())
+
     def getButtonListLayout(self):
         # Button Widgets
         self.newButton = MapListButton('New',
@@ -149,8 +152,26 @@ class MapListLayout(QWidget):
     def setStatus(self, msg):
         self.StatusBar.showMessage(msg)
 
-    def getMapRawData(self, data):
-        print(data.data())
+    def processMapRawData(self, data):
+        raw_data = data.data()
+        map_id = getListViewData(raw_data, mapID)
+        map_data = convert_mapID_to_mapData(map_id)
+        print(map_data)
+
+
+    def changeListViewData(self):
+        # Server OFF
+        if not getDataServerOnline():
+            self.setStatus("Data Server is not WORKING!!")
+            return
+
+        mapList = getSortedMapList(self.sortComboBox.currentText())
+        startIndex = (self.getPage() - 1) * 5
+        if startIndex > len(mapList) - 1: # OverFlow
+            mapList = []
+        else:
+            mapList = mapList[startIndex : min(startIndex + 5, len(mapList))]
+        self.ListView.setModel(convert_toModel(mapList))
 
     def __str__(self):
         return self.getMainLayout()

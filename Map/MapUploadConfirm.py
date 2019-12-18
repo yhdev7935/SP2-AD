@@ -5,7 +5,8 @@ from options import *
 from Font import *
 from GameMainButton import *
 from GameMainLayout import *
-from DataManagement import *
+from FileDataManagement import *
+from MapDataManagement import *
 from options import *
 
 class MapUploadConfirm:
