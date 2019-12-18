@@ -169,8 +169,11 @@ class MapListLayout(QWidget):
         if not getDataServerOnline():
             self.setStatus("Data Server is not WORKING!!")
             return
-
-        mapList = getSortedMapList(self.sortComboBox.currentText())
+        sort = self.sortComboBox.currentText()
+        if sort == "my Map":
+            mapList = getSortedMapList(self.sortComboBox.currentText(), player_id=self.GameMain.playerdata.get(CLIENT_ID_KEY))
+        else:
+            mapList = getSortedMapList(self.sortComboBox.currentText())
         mapList = self.SearchFilter(mapList)
         startIndex = (self.getPage() - 1) * 5
         if startIndex > len(mapList) - 1: # OverFlow

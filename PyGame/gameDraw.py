@@ -36,6 +36,6 @@ def drawPicture(self, isgame=True):
         recentimg = image['p'].subsurface((20*self.ptime, 0, 20, 20))
         self.screen.blit(recentimg, (self.px, self.py))
 
-    pygame.time.Clock().tick(60 * 1.8)
+    pygame.time.Clock().tick(60 * GAME_SPEED)
     pygame.display.update()
 

@@ -28,6 +28,8 @@ def getVersion():
 
 VERSION = getVersion()
 
+GAME_SPEED = 1.8
+
 SERVER_DISCONNECTED = "Not Connected"
 
 DATA_SERVER_IP = "127.0.0.1:5000"

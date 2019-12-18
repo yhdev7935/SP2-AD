@@ -32,10 +32,13 @@ def genKey(_len=20):
         ret += random.choice(string_pool)
     return ret
 
-def getKeyData(key):
+def getKeyData(key, player_id = None):
     if getDataServerOnline():
         url = "http://" + DATA_SERVER_IP + "/" + key
-        data = put(url).json()
+        if player_id == None:
+            data = put(url).json()
+        else:
+            data = put(url, data={playerID[0]: player_id}).json()
         return data
     return None
 
@@ -51,9 +54,9 @@ def upload(upload_data):
         url = "http://" + DATA_SERVER_IP + "/upload"
         put(url, data=upload_data)
 
-def getSortedMapList(key):
+def getSortedMapList(key, player_id = None):
     if getDataServerOnline():
-        return getKeyData(str(key).replace(' ', ''))
+        return getKeyData(str(key).replace(' ', ''), player_id)
     return None
 
 def convert_toModel(map_data):
